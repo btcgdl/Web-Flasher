@@ -27,7 +27,7 @@
   "homepage": "https://github.com/JordyPirata/Web-Flasher#readme",
   "dependencies": {
     "@tailwindcss/cli": "^4.0.6",
-    "android-fastboot": "file:../fastboot.js",
+    "android-fastboot": "file:../../fastboot.js",
     "lodash": "^4.17.21",
     "tailwindcss": "^4.0.6",
     "url": "^0.11.4"

@@ -87,8 +87,11 @@
             
             <h2 class="text-2xl mb-4 text-gray-300">Connecting the Device</h2>
             <p class="mb-4 text-gray-400">Current Windows 10 and Windows 11 include a generic driver usable for fastboot and no longer require installing a driver for installation. It isn’t enough for legacy 4th generation Pixels due to the driver not handling fastbootd, so you still need the driver for those. Outdated Windows versions will also need the driver for non-obsolete devices. You can obtain the driver from Windows Update, which will detect it as an optional update when the device is booted into the bootloader interface and connected to the computer. Open Windows Update, run a check for updates, then open the "View optional updates" interface. Install the driver for the Android bootloader interface as an optional update, which will show up as "LeMobile Android Device" due to USB ID overlap. Alternatively, obtain the <a href="https://developer.android.com/studio/run/win-usb" class="text-[#fd961a] hover:underline">latest driver for Pixels</a> from Google and <a href="https://developer.android.com/studio/run/oem-usb#InstallingDriver" class="text-[#fd961a] hover:underline">manually install it with the Windows Device Manager</a>.</p>
-            
+              
             <button id="request-device" class="bg-[#fd961a] hover:bg-[#a06713] text-white font-semibold py-2 px-6 rounded transition">Give Access</button>
+             <p class="p-6 mb-4 text-gray-400">Rembember you need to erase all old data</p>
+            <button id="erase-old-data" class="bg-[#fd961a] hover:bg-[#a06713] text-white font-semibold py-2 px-6 rounded transition">Erase OLD DATA</button>           
+            
             <p class="p-6 mb-4 text-gray-400">You need to flash first the boot image and then the system image.</p>
             <div class="container mx-auto p-6">
                 <form class="flash-form max-w-md space-y-4 bg-[#202020] p-6 rounded-lg shadow-lg">

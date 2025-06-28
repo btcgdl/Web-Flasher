@@ -1,10 +1,10 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./node_modules/android-fastboot/dist/fastboot.cjs":
-/*!*********************************************************!*\
-  !*** ./node_modules/android-fastboot/dist/fastboot.cjs ***!
-  \*********************************************************/
+/***/ "../../fastboot.js/dist/fastboot.cjs":
+/*!*******************************************!*\
+  !*** ../../fastboot.js/dist/fastboot.cjs ***!
+  \*******************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -30321,52 +30321,52 @@ exports.Url = Url;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var android_fastboot__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! android-fastboot */ "./node_modules/android-fastboot/dist/fastboot.cjs");
+/* harmony import */ var android_fastboot__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! android-fastboot */ "../../fastboot.js/dist/fastboot.cjs");
 
 
 const deviceinfo = [{
-    'name': 'oneplus-enchilada',
-    'nicename': 'OnePlus 6',
-    'filter': {
-      'product': 'sdm845'
+  'name': 'oneplus-enchilada',
+  'nicename': 'OnePlus 6',
+  'filter': {
+    'product': 'sdm845'
+  },
+  'script': [
+    {
+      type: "flash",
+      // size: 2897200992,
+      size: 734292888, //postmarketOS oneplus-enchilada.img.xz
+      // url: "https://elasticbeanstalk-us-west-2-190312923858.s3.us-west-2.amazonaws.com/boot.img.xz",
+      url: "https://images.postmarketos.org/bpo/v24.12/oneplus-enchilada/gnome-mobile/20250219-1310/20250219-1310-postmarketOS-v24.12-gnome-mobile-3-oneplus-enchilada.img.xz",
+      partition: "userdata",
+      name: "Flash rootfs"
     },
-    'script': [
-      {
-        type: "flash",
-        // size: 2897200992,
-        size: 734292888, //postmarketOS oneplus-enchilada.img.xz
-        // url: "https://elasticbeanstalk-us-west-2-190312923858.s3.us-west-2.amazonaws.com/boot.img.xz",
-        url: "https://images.postmarketos.org/bpo/v24.12/oneplus-enchilada/gnome-mobile/20250219-1310/20250219-1310-postmarketOS-v24.12-gnome-mobile-3-oneplus-enchilada.img.xz",
-        partition: "userdata",
-        name: "Flash rootfs"
-      },
-      {
-        type: "flash",
-        // size: 31595068,
-        size: 23749736, // postmarketOS oneplus-enchilada-boot.img.xz
-        // url: "https://elasticbeanstalk-us-west-2-190312923858.s3.us-west-2.amazonaws.com/system.img.xz",
-        url: "https://images.postmarketos.org/bpo/v24.12/oneplus-enchilada/gnome-mobile/20250219-1310/20250219-1310-postmarketOS-v24.12-gnome-mobile-3-oneplus-enchilada-boot.img.xz",
-        partition: 'boot',
-        name: "Flash boot"
-      }, 
-      {
-        type: "cmd",
-        command: "erase:dtbo",
-        name: "Erase DTBO partition"
-      },
-      /*
-      {
-        type: "cmd",
-        command: "erase:dtbo_b",
-        name: "Erase DTBO partition"
-      },*/
-      {
-        type: "cmd",
-        command: "reboot",
-        name: "Reboot"
-      },
-    ]
-  }
+    {
+      type: "flash",
+      // size: 31595068,
+      size: 23749736, // postmarketOS oneplus-enchilada-boot.img.xz
+      // url: "https://elasticbeanstalk-us-west-2-190312923858.s3.us-west-2.amazonaws.com/system.img.xz",
+      url: "https://images.postmarketos.org/bpo/v24.12/oneplus-enchilada/gnome-mobile/20250219-1310/20250219-1310-postmarketOS-v24.12-gnome-mobile-3-oneplus-enchilada-boot.img.xz",
+      partition: 'boot',
+      name: "Flash boot"
+    },
+    {
+      type: "cmd",
+      command: "erase:dtbo",
+      name: "Erase DTBO partition"
+    },
+    /*
+    {
+      type: "cmd",
+      command: "erase:dtbo_b",
+      name: "Erase DTBO partition"
+    },*/
+    {
+      type: "cmd",
+      command: "reboot",
+      name: "Reboot"
+    },
+  ]
+}
 ];
 
 // Create a new FastbootDevice instance
@@ -30399,7 +30399,7 @@ async function RunScript(script) {
 
   let progressBar = document.createElement('PROGRESS');
   progressBar.value = 0;
-  
+
   for (let i = 0; i < script.length; i++) {
     const step = script[i];
 
@@ -30429,8 +30429,7 @@ async function RunScript(script) {
         }));
 
         const reader = new xzwasm.XzReadableStream(res.body);
-        await device.flashBlob(step.partition, reader, step.size, function (progress) 
-        {
+        await device.flashBlob(step.partition, reader, step.size, function(progress) {
           td_product.textContent = `Flashing...  ${step.partition}`;
         });
         break;
@@ -30448,12 +30447,12 @@ async function OnConnectDevice() {
   try {
     await device.connect();
   } catch (error) {
-      statusField.textContent = `Failed to connect to device: ${error.message}`;
-      return;
+    statusField.textContent = `Failed to connect to device: ${error.message}`;
+    return;
   }
-  
+
   // Get the product name
-  const product = await device.getVariable("product");  
+  const product = await device.getVariable("product");
 
   let result;
 
@@ -30474,17 +30473,17 @@ async function OnConnectDevice() {
   const startButton = document.createElement('BUTTON');
   startButton.textContent = 'Start flashing';
   // add classes to tailwindcss and move to right
-  startButton.classList.add('bg-[#fd961a]', 'hover:bg-[#a06713]', 'text-white', 'font-semibold', 'py-2', 'px-4', 'rounded', 'transition','ml-auto');
+  startButton.classList.add('bg-[#fd961a]', 'hover:bg-[#a06713]', 'text-white', 'font-semibold', 'py-2', 'px-4', 'rounded', 'transition', 'ml-auto');
   startButton.addEventListener('click', flashFromFile);
 
   td_start.classList.add('flex', 'items-center', 'justify-center');
   td_start.appendChild(startButton);
-  
+
 }
 function getFileType(filename) {
   // Convert the filename to lowercase
   const name = filename.toLowerCase();
-  
+
   if (name.endsWith('system.img')) {
     return 'userdata';
   }
@@ -30516,8 +30515,15 @@ async function flashFromFile(event) {
   });
 
   td_product.textContent = `Flashing...  ${fileType} done`;
-  
+
   fileField.value = "";
+}
+
+async function EraseOldData(event) {
+  event.preventDefault();
+  await device.runCommand("erase:boot")
+  await device.runCommand("erase:userdata")
+  await device.runCommand("erase:system_b")
 }
 
 async function ReebotDevice(event) {
@@ -30536,7 +30542,7 @@ document.addEventListener("DOMContentLoaded", async function() {
   const instructions = document.getElementById('instructions');
 
   // Check WebUSB support and manage element visibility
-  if (navigator.usb === undefined) { 
+  if (navigator.usb === undefined) {
     warningDiv.style.display = 'none';         // Hide warning
     supportedDiv.style.display = 'none';      // Hide supported devices
     connectedDiv.style.display = 'none';      // Hide connected devices
@@ -30548,25 +30554,25 @@ document.addEventListener("DOMContentLoaded", async function() {
   }
   // Add event listener to the warning button
   const warningButton = document.getElementById('warning-button');
-  warningButton.addEventListener('click', function (event) {
+  warningButton.addEventListener('click', function(event) {
     event.preventDefault();
     warningDiv.style.display = 'none';   // Hide warning on click
     supportedDiv.style.display = 'block';   // Show supported devices on click
   });
   // Add event listener to the continue button
   const continueButton = document.getElementById('continue-button');
-  continueButton.addEventListener('click', function (event) {
+  continueButton.addEventListener('click', function(event) {
     event.preventDefault();
     connectedDiv.style.display = 'block';   // Show connected devices on click
     instructions.style.display = 'none';   // Show instructions on click
   });
-  
+
   // Add event listener to connect button
   const requestDeviceButton = document.getElementById('request-device');
-  requestDeviceButton.addEventListener('click', async function (event) {
+  requestDeviceButton.addEventListener('click', async function(event) {
     event.preventDefault();
     try {
-      
+
       td_product.classList.add('text-left');
       td_product.textContent = "Connecting to device...";
     } catch (err) {
@@ -30579,9 +30585,11 @@ document.addEventListener("DOMContentLoaded", async function() {
 
   });
 
+  const eraseOldDataButton = document.getElementById("erase-old-data");
+  eraseOldDataButton.addEventListener('click', EraseOldData);
   const rebootButton = document.getElementById('reboot-device');
   rebootButton.addEventListener('click', ReebotDevice);
-  
+
   const suppTable = document.getElementById('supporteddevices');
   for (let i = 0; i < deviceinfo.length; i++) {
     const di = deviceinfo[i];
@@ -30597,6 +30605,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     suppTable.appendChild(row);
   }
 });
+
 
 /***/ }),
 
